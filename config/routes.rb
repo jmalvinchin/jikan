@@ -1,6 +1,6 @@
 Jikan::Application.routes.draw do
 
-  resources :users, :items
+  resources :items
 
   root to: "dashboard#index"
 
