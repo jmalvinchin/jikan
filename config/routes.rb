@@ -1,5 +1,7 @@
 Jikan::Application.routes.draw do
 
+  devise_for :users
+
   resources :items
 
   resources :entries do
