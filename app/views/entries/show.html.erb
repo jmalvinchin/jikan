@@ -1,0 +1,38 @@
+<%= javascript_include_tag "entries/show" %>
+
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
+<p>
+  <strong>Customer Number:</strong>
+  <%= @entry.customer_number %>
+</p>
+ 
+<p>
+  <strong>Start Time:</strong>
+  <%= @entry.start_time.strftime('%I:%M%p') %>
+</p>
+
+<p>
+  <strong>End Time:</strong>
+  <% if @entry.end_time %>
+    <%= @entry.end_time.strftime('%I:%M%p') %>
+  <% else %>
+    N/A
+  <% end %>
+</p>
+
+<div id="clock_hou" class="clock_container">
+    <div class="lbl">Philippines</div>
+    <div class="clockHolder">
+        <div class="rotatingWrapper"><%= image_tag("clock_hour.png", :alt => "clock hour", :class => "hour") %></div>
+        <div class="rotatingWrapper"><%= image_tag("clock_min.png", :alt => "clock min", :class=>"min") %></div>
+        <div class="rotatingWrapper"><%= image_tag("clock_sec.png", :alt => "clock sec", :class=>"sec") %></div>
+        <%= image_tag("clock_face.png", :alt => "clock face", :class=>"clock") %>
+    </div>
+    <div class="digital"><span class="hr"></span><span class="minute"></span> <span class="period"></span> </div>
+</div>
+
+<%= link_to 'Back', entries_path %>
+<%= link_to 'Stop', entry_path(@entry), :method => :put %>
