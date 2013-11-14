@@ -21,6 +21,13 @@ class EntriesController < ApplicationController
 
     def show
         @entry = Entry.find(params[:id])
+        if @entry.end_time
+           diff = @entry.end_time - @entry.start_time
+           seconds = diff % 60.to_i
+           minutes = (diff / 60) % 60.to_i
+           hours = (diff / 60) / 60.to_i
+           @elapsed_time = "%02d:%02d:%02d" % [hours, minutes, seconds]
+        end
     end
 
     def update

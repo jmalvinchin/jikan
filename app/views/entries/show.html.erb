@@ -23,6 +23,24 @@
   <% end %>
 </p>
 
+<input type="hidden" id="start_year" value="<%= @entry.start_time.year %>">
+<input type="hidden" id="start_month" value="<%= @entry.start_time.month - 1 %>">
+<input type="hidden" id="start_day" value="<%= @entry.start_time.day %>">
+<input type="hidden" id="start_hour" value="<%= @entry.start_time.hour %>">
+<input type="hidden" id="start_min" value="<%= @entry.start_time.min %>">
+<input type="hidden" id="start_sec" value="<%= @entry.start_time.sec %>">
+<input type="hidden" id="end_time" value="<%= @entry.end_time %>">
+
+<div class="example">
+    <div class="label">Elapsed Time</div>
+    <% if @entry.end_time %>
+      <div><%= @elapsed_time %></div>
+    <% else %>
+      <div id="demo1" class="demo">00:00:00</div>
+    <% end %>
+</div>
+<br>
+
 <div id="clock_hou" class="clock_container">
     <div class="lbl">Philippines</div>
     <div class="clockHolder">

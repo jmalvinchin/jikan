@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require jClocksGMT
 //= require jquery.rotate
+//= require jquery.stopwatch
 
