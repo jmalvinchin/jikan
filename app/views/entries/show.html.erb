@@ -41,6 +41,16 @@
 </div>
 <br>
 
+
+<% if @entry.addons.empty? %>
+  No addons.
+  <%= link_to 'Add Item', new_entry_addon_path(@entry) %>
+<% else %>
+  <% @entry.addons.each do |addon| %>
+    <%= addon.item.name %> - <%= addon.quantity %>
+  <% end %>
+<% end %>
+
 <div id="clock_hou" class="clock_container">
     <div class="lbl">Philippines</div>
     <div class="clockHolder">

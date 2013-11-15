@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113015712) do
+ActiveRecord::Schema.define(:version => 20131114081319) do
+
+  create_table "addons", :force => true do |t|
+    t.integer  "quantity"
+    t.integer  "entry_id"
+    t.integer  "item_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "addons", ["entry_id"], :name => "index_addons_on_entry_id"
 
   create_table "entries", :force => true do |t|
     t.string   "customer_number"
