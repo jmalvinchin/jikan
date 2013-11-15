@@ -1,4 +1,6 @@
 class EntriesController < ApplicationController
+    before_filter :load_entries_service
+
     def index
         @entries = Entry.all
     end
@@ -39,6 +41,10 @@ class EntriesController < ApplicationController
         else
             flash[:notice] = "An error occurred while trying to stop time."
         end
+    end
+
+    def load_entries_service(service = EntriesService.new)
+        @entries_service ||= service
     end
 
     private
