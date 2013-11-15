@@ -35,6 +35,12 @@ class EntriesController < ApplicationController
     def update
         @entry = Entry.find(params[:id])
         @entry.end_time = DateTime.now
+        price = ::Configuration.find(1).price
+
+        addon_total = @entries_service.compute_addon_cost(@entry)
+        time_total = @entries_service.compute_time_cost(@entry, price)
+
+        @entry.total_cost = addon_total + time_total
 
         if @entry.save
             redirect_to @entry

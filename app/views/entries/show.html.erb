@@ -23,6 +23,15 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Total Cost:</strong>
+  <% if @entry.end_time %>
+    <%= number_with_precision(@entry.total_cost, :precision => 2) %>
+  <% else %>
+    N/A
+  <% end %>
+</p>
+
 <input type="hidden" id="start_year" value="<%= @entry.start_time.year %>">
 <input type="hidden" id="start_month" value="<%= @entry.start_time.month - 1 %>">
 <input type="hidden" id="start_day" value="<%= @entry.start_time.day %>">

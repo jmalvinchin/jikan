@@ -4,6 +4,7 @@ class CreateEntries < ActiveRecord::Migration
       t.string :customer_number
       t.datetime :start_time
       t.datetime :end_time
+      t.decimal :total_cost
 
       t.timestamps
     end
