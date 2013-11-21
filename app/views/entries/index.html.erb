@@ -1,0 +1,27 @@
+<%= link_to 'New Entry', new_entry_path %>
+
+<h1>Listing entries</h1>
+ 
+<table>
+  <tr>
+    <th>Customer Number</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+  </tr>
+ 
+  <% @entries.each do |entry| %>
+    <tr>
+      <td><%= entry.customer_number %></td>
+      <td><%= entry.start_time.strftime('%I:%M%p') %></td>
+      <td>
+        <% if entry.end_time %>
+          <%= entry.end_time.strftime('%I:%M%p') %>
+        <% else %>
+          N/A
+        <% end %>
+      </td>
+      <td><%= link_to 'Show', entry %></td>
+      <td><%= link_to 'Destroy', entries_path(entry), method: :delete, data: { confirm: 'Are you sure?' } %></td>      
+    </tr>
+  <% end %>
+</table>
