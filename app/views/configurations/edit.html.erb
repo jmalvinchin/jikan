@@ -1,0 +1,19 @@
+<%= simple_form_for @configuration do |f| %>
+  <%if @configuration.errors.any? %>
+    <div id="error_explanation">
+      <h2> <%= pluralize(@configuration.errors.count, "error") %> prevented this configuration from being saved: </h2>
+      <ul>
+      <% @configuration.errors.full_messages.each do |msg| %>
+        <li> <%= msg %> </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.input :price %><br>
+  </p>
+ 
+  <p>
+    <%= f.button :submit %>
+  </p>
+<% end %>

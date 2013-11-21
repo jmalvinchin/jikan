@@ -6,6 +6,8 @@ Jikan::Application.routes.draw do
     resources :addons
   end
 
+  resources :configurations
+
   root to: "dashboard#index"
 
   get "dashboard/index"
