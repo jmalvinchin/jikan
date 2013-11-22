@@ -6,4 +6,12 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
   validates :username, presence: true
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
 end
