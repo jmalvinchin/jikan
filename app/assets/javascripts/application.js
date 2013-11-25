@@ -10,9 +10,15 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
+//= require jquery-2.0.3
 //= require jquery_ujs
 //= require jClocksGMT
 //= require jquery.rotate
 //= require jquery.stopwatch
+//= require bootstrap
+//= require ace-extra
+//= require ace-elements
+//= require ace
+    
+
 
