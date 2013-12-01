@@ -19,6 +19,9 @@
 //= require ace-extra
 //= require ace-elements
 //= require ace
+//= require jquery.dataTables.min
+//= require jquery.dataTables.bootstrap
+//= require entries/show
     
 
 

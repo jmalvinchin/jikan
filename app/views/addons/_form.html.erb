@@ -1,0 +1,23 @@
+<%= simple_form_for [@entry, @addons] do |f| %>
+  <%if @addons.errors.any? %>
+    <div id="error_explanation">
+      <h2> <%= pluralize(@addons.errors.count, "error") %> prevented this addon from being saved: </h2>
+      <ul>
+      <% @addons.errors.full_messages.each do |msg| %>
+        <li> <%= msg %> </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :quantity, label_html: {class: 'col-sm-3'}, input_html: {class: 'col-xs-10 col-sm-5'} %>
+ 
+  <%= f.association :item, collection: Item.all(order:'name'), prompt: "Select an Item" , label_html: {class: 'col-sm-3'}, input_html: {class: 'col-xs-10 col-sm-5'} %>
+  
+  <div class="clearfix form-actions">
+    <div class="col-md-offset-3 col-md-9">
+      <%= f.button :submit, class: 'btn btn-info'%>
+      <%= link_to 'Cancel', entry_path(@entry), class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

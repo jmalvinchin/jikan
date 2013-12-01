@@ -1,37 +1,89 @@
-<%= javascript_include_tag "entries/show" %>
+<%= javascript_include_tag "datatables/init" %>
+<div class="page-header">
+</div>
+
+<div class="row">
+    <div class="col-xs-12 widget-container-span">
+      <div class="widget-box">
+        <div class="widget-header widget-header-large">
+          <h4>Customer# <%= @entry.customer_number %> </h4>
+          <div class="widget-toolbar">
+          <% if @entry.end_time %>
+            <div><%= @entry.formatted_time%></div>
+          <% else %>
+            <div id="demo1" class="demo">00:00:00</div>
+          <% end %>
+          </div>
+        </div>
+
+        <div class="widget-body">
+          <div class="widget-main">
+
+            <div class="profile-user-info">
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Start Time </div>
+                <div class="profile-info-value">
+                  <span><%= @entry.start_time.strftime('%I:%M%p') %></span>
+                </div>
+              </div>
+              <div class="profile-info-row">
+                <div class="profile-info-name"> End Time </div>
+                <div class="profile-info-value">
+                  <span>
+                    <%if @entry.end_time %> <%= @entry.end_time.strftime('%I:%M%p') %> <% else %> N/A <% end %>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table id="addons-table" class="table table-striped table-bordered table-hover">
+              <thead>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Actions</th>
+              </thead>
+              <tbody>
+                <% @entry.addons.each do |addon| %>
+                <tr>
+                  <td><%= addon.item.name %></td>
+                  <td><%= addon.quantity %></td>
+                  <td><%= addon.amount%></td>
+                  <td><%= link_to 'Remove', entry_addons_path(addon), method: :delete, data: { confirm: 'Are you sure?'} %></td>
+                </tr>
+                <% end %>
+              </tbody>
+              </table>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-sm-5 pull-right">
+                <h4 class="pull-right">
+                  Total Amount:
+                  <span class="red"><%= number_with_precision(@entry.total_cost, :precision => 2) %></span>
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div class="widget-toolbox padding-8 clearfix">
+            <%= link_to 'Add Addon', new_entry_addon_path(@entry), class: 'btn btn-purple'%>
+            <%= link_to 'Stop', entry_path(@entry), :method => :put, class: 'btn btn-danger'%>
+            <%= link_to 'Settle', entry_path(@entry), :method => :put, class: 'btn btn-success'%>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+</div>
+
+
+
 
 <% if flash[:notice] %>
   <p><%= flash[:notice] %></p>
 <% end %>
-
-<p>
-  <strong>Customer Number:</strong>
-  <%= @entry.customer_number %>
-</p>
- 
-<p>
-  <strong>Start Time:</strong>
-  <%= @entry.start_time.strftime('%I:%M%p') %>
-</p>
-
-<p>
-  <strong>End Time:</strong>
-  <% if @entry.end_time %>
-    <%= @entry.end_time.strftime('%I:%M%p') %>
-  <% else %>
-    N/A
-  <% end %>
-</p>
-
-<p>
-  <strong>Total Cost:</strong>
-  <% if @entry.end_time %>
-    <%= number_with_precision(@entry.total_cost, :precision => 2) %>
-  <% else %>
-    N/A
-  <% end %>
-</p>
-
 <input type="hidden" id="start_year" value="<%= @entry.start_time.year %>">
 <input type="hidden" id="start_month" value="<%= @entry.start_time.month - 1 %>">
 <input type="hidden" id="start_day" value="<%= @entry.start_time.day %>">
@@ -39,37 +91,3 @@
 <input type="hidden" id="start_min" value="<%= @entry.start_time.min %>">
 <input type="hidden" id="start_sec" value="<%= @entry.start_time.sec %>">
 <input type="hidden" id="end_time" value="<%= @entry.end_time %>">
-
-<div class="example">
-    <div class="label">Elapsed Time</div>
-    <% if @entry.end_time %>
-      <div><%= @elapsed_time %></div>
-    <% else %>
-      <div id="demo1" class="demo">00:00:00</div>
-    <% end %>
-</div>
-<br>
-
-
-<% if @entry.addons.empty? %>
-  No addons.
-  <%= link_to 'Add Item', new_entry_addon_path(@entry) %>
-<% else %>
-  <% @entry.addons.each do |addon| %>
-    <%= addon.item.name %> - <%= addon.quantity %>
-  <% end %>
-<% end %>
-
-<div id="clock_hou" class="clock_container">
-    <div class="lbl">Philippines</div>
-    <div class="clockHolder">
-        <div class="rotatingWrapper"><%= image_tag("clock_hour.png", :alt => "clock hour", :class => "hour") %></div>
-        <div class="rotatingWrapper"><%= image_tag("clock_min.png", :alt => "clock min", :class=>"min") %></div>
-        <div class="rotatingWrapper"><%= image_tag("clock_sec.png", :alt => "clock sec", :class=>"sec") %></div>
-        <%= image_tag("clock_face.png", :alt => "clock face", :class=>"clock") %>
-    </div>
-    <div class="digital"><span class="hr"></span><span class="minute"></span> <span class="period"></span> </div>
-</div>
-
-<%= link_to 'Back', entries_path %>
-<%= link_to 'Stop', entry_path(@entry), :method => :put %>

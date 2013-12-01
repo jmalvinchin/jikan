@@ -10,26 +10,20 @@ class EntriesController < ApplicationController
     end
 
     def create
-        @entry = Entry.new(entry_params)
 
+        @entry = Entry.new
+        @entry.customer_number = @entries_service.generate_id
         @entry.start_time = DateTime.now
 
         if @entry.save
             redirect_to @entry
         else
-            render 'new'
+            render 'index'
         end
     end 
 
     def show
         @entry = Entry.find(params[:id])
-        if @entry.end_time
-           diff = @entry.end_time - @entry.start_time
-           seconds = diff % 60.to_i
-           minutes = (diff / 60) % 60.to_i
-           hours = (diff / 60) / 60.to_i
-           @elapsed_time = "%02d:%02d:%02d" % [hours, minutes, seconds]
-        end
     end
 
     def update

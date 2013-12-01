@@ -6801,8 +6801,9 @@ th .lbl:only-child,
 td .lbl:only-child {
   vertical-align: top;
 }
+
 .table-header {
-  background-color: #307ecc;
+/*  background-color: #307ecc;*/
   color: #FFF;
   font-size: 14px;
   line-height: 38px;

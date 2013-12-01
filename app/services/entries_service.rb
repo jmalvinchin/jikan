@@ -17,4 +17,17 @@ class EntriesService
         end
         total
     end
+
+    def generate_id
+        entry = Entry.order("created_at").last
+        if entry
+            generated_id = entry.customer_number.to_i + 1
+            if entry.created_at.to_date != Date.today
+                generated_id = 1
+            end
+        else
+            generated_id = 1
+        end
+        generated_id
+    end
 end

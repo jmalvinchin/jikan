@@ -10,6 +10,7 @@ class AddonsController < ApplicationController
         puts params
 
         @addons = Addon.new(addons_params)
+        @addons.compute_amount
         entry = Entry.find(params[:entry_id])
         @addons.entry = entry
 
