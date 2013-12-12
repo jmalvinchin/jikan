@@ -4,7 +4,6 @@ class Addon < ActiveRecord::Base
   belongs_to :item
   validates :quantity, presence: true
   validates :item_id, presence:
-  validate :item_id_exists
 
   def compute_amount
     if self.item
@@ -14,7 +13,4 @@ class Addon < ActiveRecord::Base
     end
   end
 
-  def item_id_exists
-    return false if Item.find(self.item_id).nil?
-  end
 end

@@ -17,7 +17,7 @@ class Entry < ActiveRecord::Base
       seconds = diff % 60.to_i
       minutes = (diff / 60) % 60.to_i
       hours = (diff / 60) / 60.to_i
-      "%02d:%02d" % [hours, minutes]      
+      "%02d Hours and %02d minutes" % [hours, minutes]
     else
       nil
     end

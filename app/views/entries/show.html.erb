@@ -2,6 +2,9 @@
 <div class="page-header">
 </div>
 
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
 <div class="row">
     <div class="col-xs-12 widget-container-span">
       <div class="widget-box">
@@ -67,9 +70,13 @@
             </div>
           </div>
           <div class="widget-toolbox padding-8 clearfix">
-            <%= link_to 'Add Addon', new_entry_addon_path(@entry), class: 'btn btn-purple'%>
-            <%= link_to 'Stop', entry_path(@entry), :method => :put, class: 'btn btn-danger'%>
-            <%= link_to 'Settle', entry_path(@entry), :method => :put, class: 'btn btn-success'%>
+            <div class="pull-right padding-8 clearfix">
+              <% if @entry.end_time.blank? %>
+                <%= link_to 'Add Addon', new_entry_addon_path(@entry), class: 'btn btn-purple'%>
+                <%= link_to 'Stop', entry_path(@entry), :method => :put, class: 'btn btn-danger'%>
+              <% end %>
+                <%= link_to 'Settle', entry_path(@entry), :method => :put, class: 'btn btn-success'%>
+            </div>
           </div>
         </div>
 
@@ -77,13 +84,6 @@
 
     </div>
 </div>
-
-
-
-
-<% if flash[:notice] %>
-  <p><%= flash[:notice] %></p>
-<% end %>
 <input type="hidden" id="start_year" value="<%= @entry.start_time.year %>">
 <input type="hidden" id="start_month" value="<%= @entry.start_time.month - 1 %>">
 <input type="hidden" id="start_day" value="<%= @entry.start_time.day %>">

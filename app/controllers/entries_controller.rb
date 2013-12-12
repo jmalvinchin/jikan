@@ -28,19 +28,24 @@ class EntriesController < ApplicationController
 
     def update
         @entry = Entry.find(params[:id])
-        @entry.end_time = DateTime.now
-        price = ::Configuration.find(1).price
+        if @entry.end_time.blank?
+            @entry.end_time = DateTime.now
+            price = ::Configuration.find(1).price
 
-        addon_total = @entries_service.compute_addon_cost(@entry)
-        time_total = @entries_service.compute_time_cost(@entry, price)
+            addon_total = @entries_service.compute_addon_cost(@entry)
+            time_total = @entries_service.compute_time_cost(@entry, price)
 
-        @entry.total_cost = addon_total + time_total
+            @entry.total_cost = addon_total + time_total
 
-        if @entry.save
-            redirect_to @entry
+            if @entry.save
+                flash[:notice] = "Successfully finished the entry."
+            else
+                flash[:notice] = "An error occurred while trying to stop time."
+            end
         else
-            flash[:notice] = "An error occurred while trying to stop time."
+            flash[:notice] = "You cannot stop a finished entry."
         end
+        redirect_to @entry
     end
 
     def load_entries_service(service = EntriesService.new)
